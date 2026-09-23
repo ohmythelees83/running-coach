@@ -17,8 +17,9 @@ as the source of truth for my training data.
 ## Status
 
 System created: 2026-09-23
-athlete-profile.md: to be completed today
-Strava connection: to be confirmed
+athlete-profile.md: complete
+Strava connection: confirmed 2026-09-23 (read-only, via connector — no manual
+  API app or tokens needed)
 Skills: to be built over the next 7 days
 
 This system will fill in over the next 7 days as I complete my profile,
