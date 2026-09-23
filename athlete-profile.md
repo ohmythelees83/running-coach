@@ -29,6 +29,7 @@ terrain/vert-specific strength, durability over raw speed.
 - Has access to a turbo trainer. Wants it used on "rest" days and/or to help
   build aerobic fitness without added impact — useful given the recent knee
   surgery and general injury-risk management.
+- Training week runs Monday–Sunday (set 2026-09-24).
 
 ## Injury History & Health Considerations
 - **Knee arthroscopy** — approx. 11 weeks ago (relative to 2026-09-23):
