@@ -12,6 +12,7 @@ as the source of truth for my training data.
 - races/               — race research and race-day plans
 - health/              — recovery, readiness, and injury-risk notes
 - .claude/skills/      — reusable skills I can run with one command
+- dashboard.html       — visual dashboard (double-click to open locally)
 - athlete-os.md        — this overview
 
 ## Status
@@ -20,6 +21,10 @@ System created: 2026-09-23
 athlete-profile.md: complete
 Strava connection: confirmed 2026-09-23 (read-only, via connector — no manual
   API app or tokens needed)
+Dashboard: live at dashboard.html (local) and
+  https://claude.ai/artifact/BdM5FGULwArxRx6GXv65Nt (hosted link — private,
+  only I can open it). Update it by asking to refresh the dashboard, or via
+  the `/update-dashboard` skill, after a session is logged.
 Skills: to be built over the next 7 days
 
 This system will fill in over the next 7 days as I complete my profile,
