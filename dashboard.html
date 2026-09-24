@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Lee — Athlete OS</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page:        #f2efe7;
+    --surface-1:   #f7f4ee;
+    --surface-2:   #ffffff;
+    --text-primary:   #16140f;
+    --text-secondary: #5c574c;
+    --muted:       #8f8a7c;
+    --gridline:    #e6e1d4;
+    --baseline:    #c9c3b2;
+    --border:      rgba(20,19,15,0.10);
+    --river:       #0b7fae;
+    --river-soft:  #0b7fae22;
+    --crimson:     #a23b32;
+    --crimson-soft:#a23b3222;
+    --good:        #0ca30c;
+    --warning:     #fab219;
+    --serious:     #ec835a;
+    --critical:    #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:        #0d0c0b;
+      --surface-1:   #141312;
+      --surface-2:   #1a1917;
+      --text-primary:   #f7f4ee;
+      --text-secondary: #c9c3b2;
+      --muted:       #8f8a7c;
+      --gridline:    #2a2823;
+      --baseline:    #3d3a32;
+      --border:      rgba(247,244,238,0.10);
+      --river:       #379fc9;
+      --river-soft:  #379fc933;
+      --crimson:     #d1685c;
+      --crimson-soft:#d1685c33;
+      --good:        #0ca30c;
+      --warning:     #fab219;
+      --serious:     #ec835a;
+      --critical:    #d03b3b;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:        #0d0c0b;
+    --surface-1:   #141312;
+    --surface-2:   #1a1917;
+    --text-primary:   #f7f4ee;
+    --text-secondary: #c9c3b2;
+    --muted:       #8f8a7c;
+    --gridline:    #2a2823;
+    --baseline:    #3d3a32;
+    --border:      rgba(247,244,238,0.10);
+    --river:       #379fc9;
+    --river-soft:  #379fc933;
+    --crimson:     #d1685c;
+    --crimson-soft:#d1685c33;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 20px 16px 48px;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .header h1 { font-size: 22px; margin: 0 0 4px; }
+  .header .sub { color: var(--text-secondary); font-size: 14px; }
+  .theme-toggle {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  /* Hero countdown */
+  .hero {
+    background: linear-gradient(135deg, var(--river-soft), var(--surface-1));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .hero-left .race-name { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 4px; }
+  .hero-left .race-date { font-size: 15px; color: var(--text-secondary); }
+  .hero-right { text-align: right; }
+  .hero-days { font-size: 56px; font-weight: 700; line-height: 1; color: var(--river); font-variant-numeric: proportional-nums; }
+  .hero-days-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  .hero-goals { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .goal-chip {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-secondary);
+  }
+  .goal-chip b { color: var(--text-primary); }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .card h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+
+  /* Stat tiles */
+  .stat-value { font-size: 28px; font-weight: 700; line-height: 1.1; }
+  .stat-sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-top: 8px;
+  }
+  .badge.good { background: color-mix(in srgb, var(--good) 16%, transparent); color: var(--good); }
+  .badge.warning { background: color-mix(in srgb, var(--warning) 20%, transparent); color: #8a5a00; }
+  .badge.serious { background: color-mix(in srgb, var(--serious) 18%, transparent); color: var(--serious); }
+  .badge.critical { background: color-mix(in srgb, var(--critical) 16%, transparent); color: var(--critical); }
+  @media (prefers-color-scheme: dark) {
+    .badge.warning { color: var(--warning); }
+  }
+  :root[data-theme="dark"] .badge.warning { color: var(--warning); }
+  .badge::before { content: "●"; font-size: 8px; }
+
+  /* Two-col section */
+  .row2 {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 760px) { .row2 { grid-template-columns: 1fr; } }
+
+  /* This week's sessions */
+  .session-list { list-style: none; margin: 0; padding: 0; }
+  .session-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--gridline);
+    font-size: 13px;
+    gap: 10px;
+  }
+  .session-list li:last-child { border-bottom: none; }
+  .session-day { color: var(--text-secondary); width: 78px; flex-shrink: 0; }
+  .session-name { flex: 1; }
+  .session-name .detail { display: block; color: var(--muted); font-size: 11.5px; margin-top: 1px; }
+  .session-tag {
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: var(--river-soft);
+    color: var(--river);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .session-tag.rest { background: var(--gridline); color: var(--muted); }
+  .session-tag.key { background: var(--crimson-soft); color: var(--crimson); }
+  .session-list li.today { background: color-mix(in srgb, var(--river) 6%, transparent); margin: 0 -8px; padding: 9px 8px; border-radius: 8px; }
+
+  /* Chart */
+  .chart-wrap { position: relative; }
+  svg text { fill: var(--muted); font-size: 10.5px; font-family: inherit; }
+  .bar { fill: var(--river); }
+  .bar-track { fill: var(--gridline); }
+  .grid-line { stroke: var(--gridline); stroke-width: 1; }
+  .axis-line { stroke: var(--baseline); stroke-width: 1; }
+  .bar-label { fill: var(--text-secondary); font-size: 10.5px; text-anchor: middle; }
+  .bar-value { fill: var(--text-primary); font-size: 11px; font-weight: 600; text-anchor: middle; }
+  .pace-line { fill: none; stroke: var(--river); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .pace-dot { fill: var(--surface-1); stroke: var(--river); stroke-width: 2; }
+  .tooltip {
+    position: absolute;
+    background: var(--text-primary);
+    color: var(--surface-1);
+    font-size: 11px;
+    padding: 6px 9px;
+    border-radius: 6px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s;
+    white-space: nowrap;
+    z-index: 10;
+    transform: translate(-50%, -110%);
+  }
+
+  /* Coaching panel */
+  .coach-overview { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); margin-bottom: 14px; }
+  .insight-list { list-style: none; margin: 0 0 14px; padding: 0; }
+  .insight-list li {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gridline);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .insight-list li:last-child { border-bottom: none; }
+  .insight-num {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: var(--river-soft);
+    color: var(--river);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .insight-tag {
+    display: block;
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 3px;
+    font-style: italic;
+  }
+  .tip-list { list-style: none; margin: 0; padding: 0; }
+  .tip-list li {
+    font-size: 13px;
+    padding: 7px 0 7px 20px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .tip-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--crimson);
+    font-weight: 700;
+  }
+
+  /* Skills */
+  .skill-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+  .skill-tile {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .skill-tile .name { font-size: 13px; font-weight: 700; color: var(--river); margin-bottom: 3px; }
+  .skill-tile .desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.4; }
+
+  /* Pace table */
+  table.pace-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.pace-table th {
+    text-align: left;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 8px 8px 0;
+    border-bottom: 1px solid var(--gridline);
+  }
+  table.pace-table td {
+    padding: 7px 8px 7px 0;
+    border-bottom: 1px solid var(--gridline);
+    font-variant-numeric: tabular-nums;
+  }
+  table.pace-table tr:last-child td { border-bottom: none; }
+
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 11.5px;
+    margin-top: 28px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div>
+      <h1>Alex Lee — Athlete OS</h1>
+      <div class="sub">Ultra running · rebuilding toward Centurion Thames Path 100</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle">Toggle dark mode</button>
+  </div>
+
+  <!-- Hero: race countdown -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="race-name">Goal Race</div>
+      <div style="font-size:20px; font-weight:700;">Centurion Thames Path 100</div>
+      <div class="race-date">Saturday 1 May 2027 · Richmond → Oxford</div>
+      <div class="hero-goals">
+        <span class="goal-chip">A: <b>Sub-22:00</b></span>
+        <span class="goal-chip">B: <b>Sub-24:00</b></span>
+        <span class="goal-chip">C: <b>Finish</b></span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-days">219</div>
+      <div class="hero-days-label">days to go</div>
+    </div>
+  </div>
+
+  <!-- Key metrics -->
+  <div class="grid">
+    <div class="card">
+      <h3>ACWR (load ratio)</h3>
+      <div class="stat-value">0.31</div>
+      <div class="stat-sub">7-day load vs. 4-week average</div>
+      <span class="badge good">Fresh / low load</span>
+    </div>
+    <div class="card">
+      <h3>This week's running</h3>
+      <div class="stat-value">0.0 mi</div>
+      <div class="stat-sub">Plan: ~4.5mi Thu, ~5.0mi Sat</div>
+      <span class="badge good">On plan — not yet run</span>
+    </div>
+    <div class="card">
+      <h3>3-week avg volume</h3>
+      <div class="stat-value">14.0 mi</div>
+      <div class="stat-sub">/week, Run + TrailRun only</div>
+    </div>
+    <div class="card">
+      <h3>Days since last run</h3>
+      <div class="stat-value">4</div>
+      <div class="stat-sub">Last: Sun 20 Sep, 5.25mi</div>
+      <span class="badge good">Well rested</span>
+    </div>
+  </div>
+
+  <div class="row2">
+    <!-- This week's sessions -->
+    <div class="card">
+      <h3>This Week — Mon 21 to Sun 27 Sep (transition week)</h3>
+      <ul class="session-list">
+        <li>
+          <span class="session-day">Wed 23</span>
+          <span class="session-name">Easy run/walk<span class="detail">Skipped — ran out of evening</span></span>
+          <span class="session-tag rest">Skipped</span>
+        </li>
+        <li class="today">
+          <span class="session-day">Thu 24</span>
+          <span class="session-name">Run/walk, 1mi:250m<span class="detail">~4.5mi · HR ≤135 on run segments</span></span>
+          <span class="session-tag">Today</span>
+        </li>
+        <li>
+          <span class="session-day">Fri 25</span>
+          <span class="session-name">Turbo, easy<span class="detail">30–40 min · Z1–Z2</span></span>
+          <span class="session-tag rest">Recovery</span>
+        </li>
+        <li>
+          <span class="session-day">Sat 26</span>
+          <span class="session-name">Structured run/walk<span class="detail">Progress to 1.25mi:250m · ~5.0mi</span></span>
+          <span class="session-tag key">Progression</span>
+        </li>
+        <li>
+          <span class="session-day">Sun 27</span>
+          <span class="session-name">Rest</span>
+          <span class="session-tag rest">Rest</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Readiness -->
+    <div class="card">
+      <h3>Today's Readiness Call</h3>
+      <div class="stat-value" style="font-size:20px;">Ready to train</div>
+      <span class="badge good">No flags</span>
+      <div style="margin-top:14px; font-size:13px; color:var(--text-secondary); line-height:1.55;">
+        4 days since your last run, ACWR is low (fresh, not overloaded), and no
+        knee swelling/pain has been logged since your last session.
+        <br><br>
+        <span style="color:var(--muted); font-size:11.5px;">Note: this read is inferred from training data only — <code>health/</code> has no entries yet. Logging swelling/pain there directly would make this call more precise.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row2">
+    <!-- Volume trend chart -->
+    <div class="card">
+      <h3>Weekly Running Volume (Run + TrailRun, last 6 weeks)</h3>
+      <div class="chart-wrap">
+        <svg id="volChart" viewBox="0 0 560 200" style="width:100%; height:auto;"></svg>
+        <div class="tooltip" id="volTooltip"></div>
+      </div>
+      <div style="font-size:11px; color:var(--muted); margin-top:6px;">
+        Zero weeks (mid/late Aug) are the post-surgery recovery window — running
+        resumed 31 Aug. This week is still in progress.
+      </div>
+    </div>
+
+    <!-- Recent paces -->
+    <div class="card">
+      <h3>Recent Run Sessions</h3>
+      <table class="pace-table">
+        <thead><tr><th>Date</th><th>Dist</th><th>Pace</th><th>Avg HR</th></tr></thead>
+        <tbody>
+          <tr><td>20 Sep</td><td>5.25mi</td><td>10:28/mi</td><td>129</td></tr>
+          <tr><td>17 Sep</td><td>4.32mi</td><td>10:25/mi</td><td>125</td></tr>
+          <tr><td>15 Sep</td><td>4.46mi</td><td>10:55/mi</td><td>120</td></tr>
+          <tr><td>13 Sep</td><td>4.51mi</td><td>11:08/mi</td><td>125</td></tr>
+          <tr><td>11 Sep</td><td>4.35mi</td><td>12:12/mi</td><td>114</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:11px; color:var(--muted); margin-top:10px;">
+        All easy run/walk sessions. Your Z1/Z2 boundary is 122 bpm — most sessions
+        sit right around it, as the Base phase intends.
+      </div>
+    </div>
+  </div>
+
+  <!-- Coaching panel -->
+  <div class="card" style="margin-bottom:20px;">
+    <h3>Coaching Read</h3>
+    <div class="coach-overview">
+      You're in the <b>Base phase</b> of an ~8-month rebuild toward the Thames Path
+      100 — the race you've finished twice and DNF'd once. Zero quality sessions,
+      run/walk progression, symptom-first monitoring given the knee. 219 days out,
+      and the plan is holding to a conservative pace on purpose.
+    </div>
+
+    <h3 style="margin-top:4px;">Insights</h3>
+    <ul class="insight-list">
+      <li>
+        <span class="insight-num">1</span>
+        <span>Your ACWR sits at ~0.31 this week — well under the 0.8–1.3 "sweet
+        spot" that load-monitoring research treats as the safer band. That's
+        expected for a deliberately quiet transition week, not a red flag on
+        its own — worth watching if it stays this low once the plan resumes
+        full weeks.
+        <span class="insight-tag">Framework: Acute:Chronic Workload Ratio</span></span>
+      </li>
+      <li>
+        <span class="insight-num">2</span>
+        <span>Weekly running volume has held steady at ~13–15mi across the last
+        three full weeks rather than ramping hard. That's the ~10% guideline
+        in your Coaching Philosophy doing its job, not stalled progress.
+        <span class="insight-tag">Coaching Philosophy: Volume and Intensity</span></span>
+      </li>
+      <li>
+        <span class="insight-num">3</span>
+        <span>Recent run-segment heart rate (114–129 bpm) sits right at your
+        Z1/Z2 boundary (122 bpm) — exactly where Johnston's aerobic-base-first
+        principle wants effort to live during this phase, not drifting into
+        Z3.
+        <span class="insight-tag">Coaching Philosophy: Core Principle 1 (Johnston)</span></span>
+      </li>
+      <li>
+        <span class="insight-num">4</span>
+        <span>No back-to-back running days appear anywhere in 8 weeks of data.
+        The Sat 3 / Sun 4 Oct trial (already scheduled) is a genuinely new
+        stimulus — worth watching closely rather than treating as routine.
+        <span class="insight-tag">Coaching Philosophy: Recovery Philosophy</span></span>
+      </li>
+    </ul>
+
+    <h3 style="margin-top:4px;">Tips For Right Now</h3>
+    <ul class="tip-list">
+      <li>Today: run/walk at 1mi:250m, same as your last clean session — no progression, HR capped at 135 on the run segments.</li>
+      <li>Log knee swelling/pain in <code>health/</code> after every session — it's empty right now, and it's the one thing this dashboard can't infer from Strava alone.</li>
+      <li>Saturday's session is the next progression step (1.25mi:250m) — only push it if today stays clean.</li>
+      <li>Winter's coming — expect early alarms to get harder. Default to evening/lunchtime sessions rather than fighting it on willpower.</li>
+    </ul>
+  </div>
+
+  <!-- Skills -->
+  <div class="card">
+    <h3>Skills — Run With One Command</h3>
+    <div class="skill-tiles">
+      <div class="skill-tile">
+        <div class="name">/plan-my-week</div>
+        <div class="desc">Builds the coming training week from your profile, recent Strava data, and that week's real availability. Grounded in polarized/80-20 training, hard/easy alternation, and the ~10% volume guideline.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Dashboard built 24 Sep 2026 · Strava is read live, never stored · Training
+    plans from <code>training/</code> · Race research from <code>races/</code> ·
+    Profile and Coaching Philosophy from <code>athlete-profile.md</code>
+  </div>
+
+</div>
+
+<script>
+  // Theme toggle
+  const toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', () => {
+    const root = document.documentElement;
+    const current = root.getAttribute('data-theme');
+    if (current === 'dark') { root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme', 'dark'); }
+  });
+
+  // Volume trend chart (single series, hand-rolled SVG bars)
+  (function() {
+    const weeks = [
+      { label: 'w/o 17 Aug', value: 0 },
+      { label: 'w/o 24 Aug', value: 0.1 },
+      { label: 'w/o 31 Aug', value: 14.7 },
+      { label: 'w/o 7 Sep',  value: 13.2 },
+      { label: 'w/o 14 Sep', value: 14.0 },
+      { label: 'w/o 21 Sep', value: 0, inProgress: true }
+    ];
+    const svg = document.getElementById('volChart');
+    const tooltip = document.getElementById('volTooltip');
+    const W = 560, H = 200, padL = 30, padR = 10, padT = 14, padB = 28;
+    const plotW = W - padL - padR, plotH = H - padT - padB;
+    const maxVal = 16;
+    const barGap = 14;
+    const barW = (plotW - barGap * (weeks.length - 1)) / weeks.length;
+
+    const ns = 'http://www.w3.org/2000/svg';
+    function el(tag, attrs) {
+      const e = document.createElementNS(ns, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    // gridlines
+    [0, 4, 8, 12, 16].forEach(v => {
+      const y = padT + plotH - (v / maxVal) * plotH;
+      svg.appendChild(el('line', { class: 'grid-line', x1: padL, x2: W - padR, y1: y, y2: y }));
+      const t = el('text', { x: padL - 6, y: y + 3, 'text-anchor': 'end' });
+      t.textContent = v;
+      svg.appendChild(t);
+    });
+    svg.appendChild(el('line', { class: 'axis-line', x1: padL, x2: W - padR, y1: padT + plotH, y2: padT + plotH }));
+
+    weeks.forEach((w, i) => {
+      const x = padL + i * (barW + barGap);
+      const displayH = w.inProgress ? plotH * 0.14 : (w.value / maxVal) * plotH;
+      const barH = displayH;
+      const y = padT + plotH - barH;
+
+      const rect = el('rect', {
+        x, y, width: barW, height: Math.max(barH, 2),
+        rx: 4, ry: 4,
+        class: w.inProgress ? '' : 'bar',
+        style: w.inProgress ? 'fill: transparent; stroke: var(--river); stroke-width: 1.5; stroke-dasharray: 4,3;' : ''
+      });
+      rect.style.cursor = 'pointer';
+      svg.appendChild(rect);
+
+      if (w.value > 0) {
+        const val = el('text', { class: 'bar-value', x: x + barW / 2, y: y - 6 });
+        val.textContent = w.value % 1 === 0 ? w.value + 'mi' : w.value.toFixed(1) + 'mi';
+        svg.appendChild(val);
+      } else if (w.inProgress) {
+        const val = el('text', { class: 'bar-value', x: x + barW / 2, y: y - 6, style: 'fill: var(--river); font-size: 9.5px;' });
+        val.textContent = 'in progress';
+        svg.appendChild(val);
+      }
+
+      const lbl = el('text', { class: 'bar-label', x: x + barW / 2, y: H - 6 });
+      lbl.textContent = w.label.replace('w/o ', '');
+      svg.appendChild(lbl);
+
+      [rect].forEach(node => {
+        node.addEventListener('mouseenter', (e) => {
+          tooltip.style.opacity = 1;
+          tooltip.textContent = w.label + ': ' + (w.inProgress ? 'in progress' : w.value.toFixed(1) + ' mi');
+          const bbox = node.getBoundingClientRect();
+          const parentBox = svg.getBoundingClientRect();
+          tooltip.style.left = (bbox.left - parentBox.left + bbox.width / 2) + 'px';
+          tooltip.style.top = (bbox.top - parentBox.top) + 'px';
+        });
+        node.addEventListener('mouseleave', () => { tooltip.style.opacity = 0; });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
