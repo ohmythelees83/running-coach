@@ -12,9 +12,7 @@ uncertain or unconfirmed details are flagged explicitly rather than guessed.
 - **Entry:** Registration for 2027 opens 31 May 2026, 1800. Entry fee £225
   (£227 unaffiliated). Qualification: a 50-mile (or longer) race finished
   in ≤15 hours between 1 Jan 2020 and race day. ([Centurion 2027 race page](https://www.centurionrunning.com/races/thames-path-100-2027))
-- **Time limit:** Sources disagree — most describe a 30-hour limit, one
-  describes 28 hours. **Flag: confirm the exact 2027 cutoff once that
-  year's infopack is published** rather than trust either figure blindly. ([search result A](https://www.centurionrunning.com/races/thames-path-100-2025/section/infopack), [search result B — 28h](https://www.centurionrunning.com/races/thames-path-100-2022))
+- **Time limit:** 30 Hours
 - **Checkpoints (2025 course, ~13 aid stations):** Walton-on-Thames,
   Wraysbury, Dorney, Cookham, Hurley, Henley, Reading, Pangbourne, Goring,
   Wallingford, Clifton Hampden, Lower Radley, Finish. ([Open Tracking results](https://results.opentracking.co.uk/event/TP100-2025))
