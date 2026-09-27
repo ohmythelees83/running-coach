@@ -1,6 +1,6 @@
 ---
 name: plan-my-week
-description: Build Alex's coming training week for the Centurion Thames Path 100 (May 2027). Grounded in real endurance training science (polarized 80/20, hard/easy alternation, progressive overload, the ~10% volume guideline and its limits), reads athlete-profile.md and the most recent plan in training/, pulls the last 1-2 weeks from Strava, checks in on that week's actual availability, lays out the week day by day with reasons, and saves it to training/ as a dated file without overwriting past weeks. Use when Alex asks to plan the week, plan training, or invokes /plan-my-week.
+description: Build Alex's coming two training weeks for the Centurion Thames Path 100 (May 2027). Grounded in real endurance training science (polarized 80/20, hard/easy alternation, progressive overload, the ~10% volume guideline and its limits), reads athlete-profile.md and the most recent plan in training/, pulls the last 1-2 weeks from Strava, checks in on that week's actual availability, lays out both weeks day by day with reasons, and saves each to training/ as its own dated file without overwriting past weeks. Use when Alex asks to plan the week, plan training, or invokes /plan-my-week.
 ---
 
 # plan-my-week
@@ -91,6 +91,22 @@ something the athlete has told you without flagging it.
   athlete-authored skills) but don't depend on it; this skill must work
   standalone.
 
+## Standing requirement: two weeks visible
+
+Alex's profile (Coaching Priorities) requires **at least 2 weeks of
+detailed plan visible at all times, amended as we go**. This skill must
+therefore always produce two week files per run, not one:
+
+- **This week** (or the coming week if run on the boundary), built in full
+  from confirmed availability and fresh Strava data.
+- **The following week**, built as a strong draft off the same data,
+  explicitly marked as provisional and dependent on how the first week
+  actually goes (name the specific things that could change it — e.g. "only
+  reintroduce the back-to-back if this week's progression stays clean").
+  When that week arrives, re-run this skill properly rather than treating
+  the draft as final — but it should never be genuinely empty in the
+  meantime.
+
 ## Steps to run
 
 ### 1. Availability check-in (always ask this first)
@@ -145,16 +161,18 @@ progression step), state the reason it's there and what it's building
 toward the Thames Path 100 — not just "long run" but why this long run, this
 week, at this distance.
 
-### 6. Save it
-Write the week to `training/` as a new dated file
-(`training/YYYY-MM-DD-week.md`, dated to the Monday the week starts) — never
-overwrite a past week's file.
+### 6. Save both weeks
+Write each week to `training/` as its own new dated file
+(`training/YYYY-MM-DD-week.md`, dated to the Monday each week starts) —
+never overwrite a past week's file. The second file should read as a draft
+(state what it assumes from the first week) rather than a second
+unconditional commitment.
 
 ### 7. Walk through it and confirm
-Present the week to Alex day by day with the reasoning, then explicitly ask
-**"what changed this week?"** — anything in the plan that doesn't match how
-they're actually feeling or what's actually going on — before treating it as
-committed. This is a proposal until confirmed, not a done deal.
+Present both weeks to Alex day by day with the reasoning, then explicitly
+ask **"what changed this week?"** — anything in the plan that doesn't match
+how they're actually feeling or what's actually going on — before treating
+either as committed. This is a proposal until confirmed, not a done deal.
 
 ## Hard rules (inherited from CLAUDE.md — never break these here either)
 - Never prescribe more than ~15% weekly volume jump, or a real intensity
