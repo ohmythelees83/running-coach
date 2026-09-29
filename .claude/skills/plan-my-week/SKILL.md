@@ -136,7 +136,34 @@ activities, including performance/HR data for each run. Establish:
 - Any signs worth flagging directly: missed sessions, unusually low or high
   effort, signs of strain
 
-### 4. Decide the week's shape
+### 4. Check phase-exit criteria (before deciding the week's shape)
+Read `training/phase-plan.md` — it names the current phase and its exit
+criteria. Using the Strava data just pulled (Step 3) plus `training/`
+history, check each criterion for the current phase honestly against real
+numbers, not a guess:
+- **Not all met:** no phase change. Only mention it if a criterion's status
+  has genuinely moved since the last check (e.g. "not yet" → "met") —
+  otherwise don't clutter the walkthrough with an unchanged checklist.
+- **All met:** this is a phase transition. Say so explicitly to Alex, then:
+  - Update `training/phase-plan.md` — move the "(current)" marker to the
+    new phase and add its "Started" date.
+  - Update the phase-progression pointer bullet in `athlete-profile.md`'s
+    Training Structure section to name the new current phase, and tell
+    Alex exactly what changed there (CLAUDE.md's hard rule on that file).
+  - Let the new phase's "what happens" section in `phase-plan.md` — not the
+    old phase's defaults — inform how the week is built in Step 5 below
+    (e.g. moving from Base into Build means muscular-endurance work and,
+    once its own foundation is there, the first real speed sessions become
+    appropriate; don't introduce them a phase early).
+- Never advance a phase because its estimated date arrived if the criteria
+  aren't genuinely met yet, and never hold back a transition that's clearly
+  earned just because the estimate suggested more time.
+- Note: `update-dashboard` also runs this same check on its own schedule —
+  if it already advanced the phase since this skill last ran, `phase-plan.md`
+  and `athlete-profile.md` will already reflect that; just build this week
+  from whatever phase is current when you read them.
+
+### 5. Decide the week's shape
 - Compute last week's actual volume as the baseline.
 - Apply the ~10% guideline to set a default volume ceiling — explain your
   math, and say plainly if it's holding the plan back from something (e.g.
@@ -154,27 +181,27 @@ activities, including performance/HR data for each run. Establish:
   extend the run:walk ratio if the prior session was clean (no knee
   swelling/pain).
 
-### 5. Write out the week, day by day
+### 6. Write out the week, day by day
 For each day give: session type, target effort/HR zone or pace, and
 duration/distance. For every key session (long run, back-to-back day, any
 progression step), state the reason it's there and what it's building
 toward the Thames Path 100 — not just "long run" but why this long run, this
 week, at this distance.
 
-### 6. Save both weeks
+### 7. Save both weeks
 Write each week to `training/` as its own new dated file
 (`training/YYYY-MM-DD-week.md`, dated to the Monday each week starts) —
 never overwrite a past week's file. The second file should read as a draft
 (state what it assumes from the first week) rather than a second
 unconditional commitment.
 
-### 7. Walk through it and confirm
+### 8. Walk through it and confirm
 Present both weeks to Alex day by day with the reasoning, then explicitly
 ask **"what changed this week?"** — anything in the plan that doesn't match
 how they're actually feeling or what's actually going on — before treating
 either as committed. This is a proposal until confirmed, not a done deal.
 
-### 8. Export the confirmed week's runs to Coros
+### 9. Export the confirmed week's runs to Coros
 Once Alex confirms (or makes no changes to) the plan, use the Coros
 connector to create one scheduled workout per **running session** in the
 **first week only** (rest and turbo days aren't run workouts — skip them).

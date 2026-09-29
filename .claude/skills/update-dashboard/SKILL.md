@@ -62,7 +62,35 @@ back, it never changes the plan itself.
   mileage per week. Mark the current week `inProgress: true` if it hasn't
   ended yet (reuse the existing dashed-bar treatment in the chart JS).
 
-### 4. Reconcile this week's session list against what actually happened
+### 4. Check phase-exit criteria and refresh the Training Phase Roadmap card
+Read `training/phase-plan.md` — it names the current phase and its exit
+criteria. Using the numbers just computed in Step 3 (ACWR, 3-week avg
+volume) plus a direct look at the Strava data for the criteria the card
+tracks that aren't already computed above (back-to-back days with both
+effort-controlled, longest continuous session duration, knee-clean streak —
+check `health/` too if it now has entries), refresh the card's exit-criteria
+list so every status pill and note reflects today's real numbers, not
+whatever was there at the last refresh.
+- **Not all criteria met:** update the pills/notes in place, no phase
+  change. Don't silently leave a stale number (e.g. an old ACWR streak
+  count) sitting on the card.
+- **All criteria for the current phase met:** this is a phase transition —
+  say so explicitly to Alex, then:
+  - Update `training/phase-plan.md` — move the "(current)" marker and add
+    the new phase's "Started" date.
+  - Update the phase-progression pointer bullet in `athlete-profile.md`'s
+    Training Structure section, and tell Alex exactly what changed there
+    (CLAUDE.md's hard rule on that file).
+  - Replace the card's heading/description and exit-criteria list with the
+    new phase's own criteria (all showing their real current status, not
+    reset to a blank "not yet" unless that's genuinely where they stand).
+- Either way, update the timeline SVG: recompute the "today" marker's
+  position from the fixed 23 Sep 2026 Base-phase start date, and if the
+  phase changed, move which segment renders as the solid/current one.
+- Never advance a phase because its estimated date arrived without the
+  criteria being met, and never hold one back that's clearly earned.
+
+### 5. Reconcile this week's session list against what actually happened
 This is the core of "update once a session is done": for each day in the
 current week's plan (from the training/ file) up to and including today,
 check whether a matching Strava activity exists near that date.
@@ -83,13 +111,13 @@ check whether a matching Strava activity exists near that date.
   it like any other completed day instead.
 - **Future days in the week:** unchanged, still show the plan's target.
 
-### 5. Update the readiness call
+### 6. Update the readiness call
 Rebuild the "Today's Readiness Call" card from the fresh numbers (days
 since last run, ACWR, and — since `health/` may still be empty — keep the
 honest note that this is inferred from training data only, not logged
 symptoms, unless `health/` now has entries to draw on directly).
 
-### 6. Refresh the coaching panel
+### 7. Refresh the coaching panel
 Keep the same structure (overview, 4 insights each tied to a Coaching
 Philosophy section or a named framework, tips for right now) but regenerate
 the content from what the fresh data actually shows — don't just carry
@@ -97,7 +125,7 @@ forward last time's insights if they're no longer the most relevant ones.
 If a completed session (especially the back-to-back or a progression step)
 produced a notable result, that belongs in an insight or a tip.
 
-### 7. Write both files
+### 8. Write both files
 - Overwrite `dashboard.html` in full with the regenerated page.
 - Build the artifact-ready version (same content, without the
   `<!DOCTYPE>`/`<html>`/`<head>`/`<body>` wrapper tags — the Artifact
@@ -105,13 +133,16 @@ produced a notable result, that belongs in an insight or a tip.
   scratchpad directory, then publish it with `action: "publish"` and the
   stored `url` from `athlete-os.md` so it updates the same link in place.
 
-### 8. Commit and push
+### 9. Commit and push
 Stage and commit `dashboard.html` (and `athlete-os.md` if the recorded URL
-changed) with a message naming what changed since the last refresh — don't
-just say "update dashboard." Push to the working branch.
+changed, and `training/phase-plan.md` / `athlete-profile.md` if Step 4
+produced a phase transition) with a message naming what changed since the
+last refresh — don't just say "update dashboard." Push to the working
+branch.
 
-### 9. Tell Alex what changed
+### 10. Tell Alex what changed
 Short summary: which sessions got marked done, any metric that moved
-meaningfully (ACWR, volume trend), and anything the coaching panel is now
+meaningfully (ACWR, volume trend), any exit-criteria status that flipped,
+a phase transition if one happened, and anything the coaching panel is now
 flagging that it wasn't before. Don't just say "refreshed" — say what's
 different.
