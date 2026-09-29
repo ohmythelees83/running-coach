@@ -124,12 +124,11 @@ for exactly what came from where.
 - **Block structure:** ~3 build weeks to 1 recovery week (~20–30% volume
   cut), matching the periodization research already baked into
   `plan-my-week`.
-- **Phase progression toward May 2027:** Base (now) → muscular-endurance
-  work introduced late in base/into build (Johnston-style, once the aerobic
-  base is solid) → Build phase layering in tired-leg quality (Britton
-  in-run progression, back-to-back weekends, eventually some Evans-style
-  speed once the foundation supports it) → race-specific prep (flat,
-  towpath-specific long continuous efforts, full fueling rehearsal) → taper.
+- **Phase progression toward May 2027:** Base (now) → Build → Race-Specific
+  Prep (Peak) → Taper → race day. Full breakdown, exit criteria for each
+  phase, and estimated (not fixed) timelines are in
+  `training/phase-plan.md` — added 2026-09-29. Phases advance on criteria
+  being met, not on a date arriving.
 
 ### Volume and Intensity
 - Effectively 100% easy/aerobic right now (zero quality sessions);
