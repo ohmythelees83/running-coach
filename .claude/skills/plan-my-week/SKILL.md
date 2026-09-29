@@ -1,6 +1,6 @@
 ---
 name: plan-my-week
-description: Build Alex's coming two training weeks for the Centurion Thames Path 100 (May 2027). Grounded in real endurance training science (polarized 80/20, hard/easy alternation, progressive overload, the ~10% volume guideline and its limits), reads athlete-profile.md and the most recent plan in training/, pulls the last 1-2 weeks from Strava, checks in on that week's actual availability, lays out both weeks day by day with reasons, and saves each to training/ as its own dated file without overwriting past weeks. Use when Alex asks to plan the week, plan training, or invokes /plan-my-week.
+description: Build Alex's coming two training weeks for the Centurion Thames Path 100 (May 2027). Grounded in real endurance training science (polarized 80/20, hard/easy alternation, progressive overload, the ~10% volume guideline and its limits), reads athlete-profile.md and the most recent plan in training/, pulls the last 1-2 weeks from Strava, checks in on that week's actual availability, lays out both weeks day by day with reasons, saves each to training/ as its own dated file without overwriting past weeks, and exports the confirmed week's run sessions to the Coros calendar. Use when Alex asks to plan the week, plan training, or invokes /plan-my-week.
 ---
 
 # plan-my-week
@@ -173,6 +173,31 @@ Present both weeks to Alex day by day with the reasoning, then explicitly
 ask **"what changed this week?"** — anything in the plan that doesn't match
 how they're actually feeling or what's actually going on — before treating
 either as committed. This is a proposal until confirmed, not a done deal.
+
+### 8. Export the confirmed week's runs to Coros
+Once Alex confirms (or makes no changes to) the plan, use the Coros
+connector to create one scheduled workout per **running session** in the
+**first week only** (rest and turbo days aren't run workouts — skip them).
+- Check `queryTrainingSchedule` for the date range first so you don't create
+  duplicates if this skill is re-run or a session was already exported.
+- Build each course from the session's actual prescription: warmup/cooldown
+  walk sections, an interval group for the run:walk reps at the session's
+  ratio, HR targets from the plan's HR zones (Z1 ≤122 for walk/easy
+  segments, Z2 123–135 for run segments unless the session specifies
+  otherwise). Match total distance to the plan's target as closely as the
+  rep structure allows.
+- courseName/courseDescription are shown to Alex verbatim in the COROS app
+  — write them in plain coaching language, include the session's purpose
+  (e.g. "ratio progression resumes," "this week's anchor long run"), and
+  carry over any live non-negotiable from the plan (e.g. avoid a specific
+  route) directly into the description.
+- **Do not export the second (draft) week.** It's provisional and likely to
+  change before it's actually run, and Coros scheduled workouts can't be
+  moved or removed via this connector — only edited in place or changed in
+  the COROS app directly. Exporting a plan that's still likely to shift
+  just creates cleanup work later. Export it next time this skill runs,
+  once it's the confirmed week.
+- Tell Alex which sessions were exported (by day), not just that it's done.
 
 ## Hard rules (inherited from CLAUDE.md — never break these here either)
 - Never prescribe more than ~15% weekly volume jump, or a real intensity
