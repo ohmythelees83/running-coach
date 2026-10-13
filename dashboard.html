@@ -316,6 +316,9 @@
   }
   .criteria-status.met { background: color-mix(in srgb, var(--good) 16%, transparent); color: var(--good); }
   .criteria-status.pending { background: var(--gridline); color: var(--muted); }
+  .criteria-status.watch { background: color-mix(in srgb, var(--warning) 20%, transparent); color: #8a5a00; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .criteria-status.watch { color: var(--warning); } }
+  :root[data-theme="dark"] .criteria-status.watch { color: var(--warning); }
   .criteria-note { color: var(--muted); font-size: 12px; }
 
   /* Pace table */
@@ -370,7 +373,7 @@
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-days">204</div>
+      <div class="hero-days">200</div>
       <div class="hero-days-label">days to go</div>
     </div>
   </div>
@@ -394,23 +397,23 @@
     <ul class="criteria-list">
       <li>
         <span class="criteria-status pending">Not yet</span>
-        <span>Weekly volume ~25mi+ for 3 consecutive weeks <span class="criteria-note">— 3-wk avg now 14.4mi, up from 13.7mi</span></span>
+        <span>Weekly volume ~25mi+ for 3 consecutive weeks <span class="criteria-note">— 3-wk avg now 15.3mi, up from 14.4mi</span></span>
       </li>
       <li>
         <span class="criteria-status pending">1 / 2</span>
-        <span>2 back-to-back weekends with both days effort-controlled <span class="criteria-note">— 26/27 Sep: Sunday clean, Saturday run too hard (Parkrun). Second attempt scheduled 10/11 Oct.</span></span>
+        <span>2 back-to-back weekends with both days effort-controlled <span class="criteria-note">— 10/11 Oct is the first one: Saturday held HR in Z2 all 3 reps (128→134→135 avg), Sunday too (122→128→130 avg) — a genuinely clean weekend, after 26/27 Sep's partial pass. 1 of 2 needed banked.</span></span>
       </li>
       <li>
-        <span class="criteria-status met">Met</span>
-        <span>No knee swelling/pain for 4+ consecutive weeks <span class="criteria-note">— clean since 31 Aug return (~5.6 weeks)</span></span>
+        <span class="criteria-status watch">Watch</span>
+        <span>No knee swelling/pain for 4+ consecutive weeks <span class="criteria-note">— no clear swelling/pain reported (~6.1 weeks on that measure), but an ambiguous "not feeling 100%, hard to explain" signal was logged 11 Oct (first entry in <code>health/</code>) — not a stop-rule trigger, but downgraded from "Met" to "Watch" until it's clearer one way or the other.</span></span>
       </li>
       <li>
         <span class="criteria-status pending">Not yet</span>
-        <span>90+ min continuous session without notable HR drift <span class="criteria-note">— longest so far still ~65 min (4 Oct). Good sign though: Tuesday's walk-shrink test came back clean (all 3 reps held in Z2, no Z3 drift), and Thursday's easy run was clean too — the drift pattern from last week didn't repeat.</span></span>
+        <span>90+ min continuous session without notable HR drift <span class="criteria-note">— longest so far still ~65 min (4 Oct). Two clean sessions since (6 Oct, 8 Oct) and now a fully clean back-to-back weekend (10/11 Oct) — the drift pattern looks genuinely settled, not just a lucky week.</span></span>
       </li>
       <li>
-        <span class="criteria-status pending">~1.7 wk</span>
-        <span>ACWR in 0.8–1.3 band for 3 consecutive weeks <span class="criteria-note">— in band continuously since 27 Sep (1.10 → 1.26 → 0.86 → 0.91 → now 0.85), getting on for 2 weeks in — 1 more to go</span></span>
+        <span class="criteria-status pending">Not yet</span>
+        <span>ACWR in 0.8–1.3 band for 3 consecutive weeks <span class="criteria-note">— dropped to 0.67 this week (below the band), ending the ~2-week streak that was building. Expected and intentional — this week's volume was deliberately cut hard (logistics + the knee signal) — but the streak resets and starts over once back in range.</span></span>
       </li>
     </ul>
   </div>
@@ -419,25 +422,25 @@
   <div class="grid">
     <div class="card">
       <h3>ACWR (load ratio)</h3>
-      <div class="stat-value">0.85</div>
+      <div class="stat-value">0.67</div>
       <div class="stat-sub">7-day load vs. 4-week average</div>
-      <span class="badge good">In range</span>
+      <span class="badge good">Fresh / low — intentional this week</span>
     </div>
     <div class="card">
       <h3>This week's running</h3>
-      <div class="stat-value">8.2 mi</div>
-      <div class="stat-sub">Tue + Thu done · plan targets ~16.3mi</div>
+      <div class="stat-value">0.0 mi</div>
+      <div class="stat-sub">Tue is turbo · Wed's London run is next · plan targets ~8.2mi</div>
       <span class="badge good">On plan</span>
     </div>
     <div class="card">
       <h3>3-week avg volume</h3>
-      <div class="stat-value">14.4 mi</div>
+      <div class="stat-value">15.3 mi</div>
       <div class="stat-sub">/week, Run + TrailRun only</div>
     </div>
     <div class="card">
       <h3>Days since last run</h3>
-      <div class="stat-value">1</div>
-      <div class="stat-sub">Last: Thu 8 Oct, easy run/walk, 3.44mi</div>
+      <div class="stat-value">2</div>
+      <div class="stat-sub">Last: Sun 11 Oct, back-to-back day 2, 3.62mi</div>
       <span class="badge good">Well rested</span>
     </div>
   </div>
@@ -445,42 +448,42 @@
   <div class="row2">
     <!-- This week's sessions -->
     <div class="card">
-      <h3>This Week — Mon 5 Oct to Sun 11 Oct</h3>
+      <h3>This Week — Mon 12 Oct to Sun 18 Oct</h3>
       <ul class="session-list">
         <li>
-          <span class="session-day">Mon 5</span>
+          <span class="session-day">Mon 12</span>
+          <span class="session-name">Rest</span>
+          <span class="session-tag rest">Rest</span>
+        </li>
+        <li class="today">
+          <span class="session-day">Tue 13</span>
+          <span class="session-name">Turbo, easy<span class="detail">Non-impact buffer before Wednesday's London run · 30–45 min, Z1–Z2</span></span>
+          <span class="session-tag">Today</span>
+        </li>
+        <li>
+          <span class="session-day">Wed 14</span>
+          <span class="session-name">Run, in London (morning)<span class="detail">Held back to 1.25mi:250m (not the newer 200m) given this week's knee signal · ~3.4mi</span></span>
+          <span class="session-tag key">Progression paused</span>
+        </li>
+        <li>
+          <span class="session-day">Thu 15</span>
+          <span class="session-name">Rest<span class="detail">Forced by London travel — no turbo access</span></span>
+          <span class="session-tag rest">Rest</span>
+        </li>
+        <li>
+          <span class="session-day">Fri 16</span>
           <span class="session-name">Rest</span>
           <span class="session-tag rest">Rest</span>
         </li>
         <li>
-          <span class="session-day">Tue 6</span>
-          <span class="session-name">Structured run/walk<span class="detail">Done — 4.75mi · walk-shrink held (250m→200m×3) · HR stayed in Z2 all 3 reps (122.9→129.5→133.1 avg), no Z3 drift this time</span></span>
-          <span class="session-tag rest">Done</span>
+          <span class="session-day">Sat 17</span>
+          <span class="session-name">Volunteering (running event)<span class="detail">Not a training day — on your feet much of the day</span></span>
+          <span class="session-tag rest">Rest</span>
         </li>
         <li>
-          <span class="session-day">Wed 7</span>
-          <span class="session-name">Turbo, easy<span class="detail">Skipped — no matching activity logged, 2nd week running</span></span>
-          <span class="session-tag rest">Skipped</span>
-        </li>
-        <li>
-          <span class="session-day">Thu 8</span>
-          <span class="session-name">Easy run/walk<span class="detail">Done — 3.44mi (hit target exactly) · HR controlled throughout, avg 115bpm, well within Z1/Z2</span></span>
-          <span class="session-tag rest">Done</span>
-        </li>
-        <li class="today">
-          <span class="session-day">Fri 9</span>
-          <span class="session-name">Rest<span class="detail">Full rest — buffer before tomorrow's back-to-back</span></span>
-          <span class="session-tag">Today</span>
-        </li>
-        <li>
-          <span class="session-day">Sat 10</span>
-          <span class="session-name">Back-to-back, day 1<span class="detail">Proven structure (1.25mi:250m×3, ~4.8mi) — the currently-proven ratio, not 26 Sep's older one · the test is holding HR 123–135 for real this time</span></span>
-          <span class="session-tag key">Back-to-back</span>
-        </li>
-        <li>
-          <span class="session-day">Sun 11</span>
-          <span class="session-name">Back-to-back, day 2<span class="detail">Easy, recovery-paced, walk-heavy · ~3.5mi, mostly Z1 — repeat of 27 Sep's approach, which worked cleanly</span></span>
-          <span class="session-tag key">Back-to-back</span>
+          <span class="session-day">Sun 18</span>
+          <span class="session-name">Long run/walk (moved from Saturday)<span class="detail">Same 1.25mi:250m ratio · ~4.8mi — a consolidation run, not a push</span></span>
+          <span class="session-tag key">Long run</span>
         </li>
       </ul>
     </div>
@@ -488,25 +491,24 @@
     <!-- Readiness -->
     <div class="card">
       <h3>Today's Readiness Call</h3>
-      <div class="stat-value" style="font-size:20px;">Rest day — the drift pattern settled, tomorrow's the next test</div>
+      <div class="stat-value" style="font-size:20px;">Turbo day — first fully clean back-to-back is in the books</div>
       <span class="badge good">On plan</span>
       <div style="margin-top:14px; font-size:13px; color:var(--text-secondary); line-height:1.55;">
-        Good news from this week: Tuesday's walk-shrink session (the one
-        with less recovery between reps) came back clean — all 3 reps held
-        their HR average in Z2, no Z3 drift like 29 Sep/4 Oct showed.
-        Thursday's easy run was clean too. That supports the "still
-        settling in" read rather than overreaching, and justifies
-        continuing as planned. 1 day since Thursday's run, no knee pain or
-        swelling reported.
+        Genuinely good news from the weekend: 10/11 Oct is the first
+        back-to-back this block where <b>both</b> days held effort control
+        — Saturday's HR averaged 128→134→135 across the three reps, Sunday
+        122→128→130. No Z3 drift either day. 1 of the 2 clean weekends
+        Base phase needs is now banked.
         <br><br>
-        Tomorrow's the next real test: the second back-to-back, where
-        Saturday's HR actually holding 123–135 is the thing being proven,
-        not distance or durability. Same route-choice and HR-alert
-        non-negotiables as before. Worth a quick check on what's getting in
-        the way of Wednesday's turbo too — it's now been skipped two weeks
-        running.
+        One thing to hold lightly: an ambiguous "not feeling 100%, hard to
+        explain" signal came up Sunday, now logged as the first entry in
+        <code>health/</code>. Not swelling or pain, so it hasn't changed
+        anything about today — but it's part of why this week holds the
+        walk-shrink progression back at 250m rather than pushing the newer
+        200m further, and why Wednesday's London run stays easy rather than
+        testing anything new. 2 days since Sunday's run.
         <br><br>
-        <span style="color:var(--muted); font-size:11.5px;">Note: this read is inferred from training data only — <code>health/</code> has no entries yet. Logging swelling/pain there directly would make this call more precise.</span>
+        <span style="color:var(--muted); font-size:11.5px;">Note: <code>health/2026-10-11-knee-note.md</code> now has one entry — worth adding a line after Wednesday's and Sunday's sessions this week too, so the pattern (or lack of one) stays visible rather than guessed at.</span>
       </div>
     </div>
   </div>
@@ -520,10 +522,11 @@
         <div class="tooltip" id="volTooltip"></div>
       </div>
       <div style="font-size:11px; color:var(--muted); margin-top:6px;">
-        28 Sep's week (15.2mi) is the highest since the 31 Aug return to
-        running. This week (5 Oct) has just started — Mon is a scheduled
-        rest day, so the bar fills in from Tuesday's walk-shrink session
-        onward.
+        5 Oct's week (16.65mi) is the new high since the 31 Aug return to
+        running — capped by the first fully clean back-to-back weekend.
+        This week (12 Oct) is deliberately much lighter: London logistics,
+        volunteering Saturday, and a knee signal worth being cautious
+        around all point the same way.
       </div>
     </div>
 
@@ -533,21 +536,20 @@
       <table class="pace-table">
         <thead><tr><th>Date</th><th>Dist</th><th>Pace</th><th>Avg HR</th></tr></thead>
         <tbody>
+          <tr><td>11 Oct</td><td>3.62mi</td><td>11:08/mi</td><td>116</td></tr>
+          <tr><td>10 Oct</td><td>4.84mi</td><td>10:39/mi</td><td>129</td></tr>
           <tr><td>8 Oct</td><td>3.44mi</td><td>11:06/mi</td><td>115</td></tr>
           <tr><td>6 Oct</td><td>4.75mi</td><td>10:48/mi</td><td>123†</td></tr>
           <tr><td>4 Oct</td><td>6.25mi</td><td>10:25/mi</td><td>131†</td></tr>
-          <tr><td>1 Oct</td><td>4.09mi</td><td>10:50/mi</td><td>119†</td></tr>
-          <tr><td>29 Sep</td><td>4.86mi</td><td>11:01/mi</td><td>123†</td></tr>
         </tbody>
       </table>
       <div style="font-size:11px; color:var(--muted); margin-top:10px;">
-        †29 Sep, 1 Oct and 4 Oct are whole-session averages that understate
-        a rep-to-rep HR climb — most notably 4 Oct, which sustained in Z3
-        (136bpm+) for 3 of 4 reps. 6 Oct broke that pattern: all 3 reps
-        held their average in Z2, no Z3 drift, despite less recovery time
-        between reps (the walk-shrink step). 8 Oct (no † — genuinely clean
-        start to finish) backs that up. Otherwise sessions sit around your
-        122 bpm Z1/Z2 boundary, as the Base phase intends.
+        †4 Oct's whole-session average understates a rep-to-rep HR climb
+        that sustained in Z3 (136bpm+) for 3 of 4 reps. Everything since
+        has been clean: 6 Oct's walk-shrink held Z2 all 3 reps, 8 Oct was
+        clean start to finish, and 10/11 Oct is the first fully clean
+        back-to-back weekend this block — both days' reps averaged inside
+        123–135, no Z3 drift either day.
       </div>
     </div>
   </div>
@@ -557,62 +559,65 @@
     <h3>Coaching Read</h3>
     <div class="coach-overview">
       You're in the <b>Base phase</b> of an ~8-month rebuild toward the Thames Path
-      100 — the race you've finished twice and DNF'd once. Good week so
-      far: Tuesday's walk-shrink progression came back clean, breaking the
-      3-session HR-drift pattern from last week. One session still missing
-      — Wednesday's turbo, two weeks running now. Tomorrow's second
-      back-to-back is the next real test. 204 days out.
+      100 — the race you've finished twice and DNF'd once. Big result over
+      the weekend: the first fully clean back-to-back this block, both
+      days effort-controlled. This week is deliberately much lighter —
+      London for work, volunteering Saturday, and a vague knee signal
+      worth being cautious around. 200 days out.
     </div>
 
     <h3 style="margin-top:4px;">Insights</h3>
     <ul class="insight-list">
       <li>
         <span class="insight-num">1</span>
-        <span>Tuesday's walk-shrink test (250m→200m) is the headline
-        result this week: all 3 run reps held their HR average in Z2
-        (122.9→129.5→133.1bpm), no Z3 drift — despite less recovery time
-        between reps than before. That directly supports the "still
-        settling in" read over overreaching, and clears the stop-rule that
-        was set for this session. Thursday's easy run was clean too (avg
-        115bpm).
-        <span class="insight-tag">Coaching Priorities: effort &amp; HR over ego</span></span>
-      </li>
-      <li>
-        <span class="insight-num">2</span>
-        <span>ACWR settled to <b>0.85</b> — still the low end of the
-        0.8–1.3 band, continuously in range since 27 Sep now for about 1.7
-        weeks. 1 more clean week and that's a Base-phase exit criterion
-        met.
-        <span class="insight-tag">Framework: Acute:Chronic Workload Ratio</span></span>
-      </li>
-      <li>
-        <span class="insight-num">3</span>
-        <span>Tomorrow's back-to-back isn't testing durability — Sunday
-        27 Sep already proved the legs handle fatigue fine. It's testing
-        whether Saturday's HR actually holds 123–135 this time, after
-        26 Sep's Parkrun-fueled miss. Same ratio as this week's clean
-        Tuesday session, deliberately not progressed further, to keep
-        effort control the one thing being tested.
+        <span>10/11 Oct is the first back-to-back weekend this block where
+        <b>both</b> days held effort control: Saturday's reps averaged
+        128→134→135bpm, Sunday's 122→128→130bpm — no Z3 drift either day.
+        After 26 Sep's miss, this is the result that was actually being
+        tested for. 1 of the 2 clean weekends Base phase needs is now
+        banked.
         <span class="insight-tag">Coaching Philosophy: Core Principle 3 (fatigue-specific training) &amp; Signature Approach 3 (back-to-backs)</span></span>
       </li>
       <li>
+        <span class="insight-num">2</span>
+        <span>A vague "not feeling 100%, hard to explain" signal came up
+        Sunday — not swelling or pain, so it doesn't trigger the hard
+        stop-rule, but it's now logged as the first entry in
+        <code>health/</code> rather than just mentioned in passing. It's
+        why this week holds the walk-shrink progression back at 250m and
+        keeps Wednesday's London run easy rather than testing anything new.
+        <span class="insight-tag">Coaching Philosophy: Recovery Philosophy (symptom-first, not data-driven)</span></span>
+      </li>
+      <li>
+        <span class="insight-num">3</span>
+        <span>ACWR dropped to <b>0.67</b>, ending the ~2-week in-band
+        streak that was building toward a Base-phase exit criterion. This
+        was a deliberate, much-lighter week (London logistics,
+        volunteering, the knee signal) — not a setback, but the streak
+        does reset and starts over once volume comes back into the
+        0.8–1.3 band.
+        <span class="insight-tag">Framework: Acute:Chronic Workload Ratio</span></span>
+      </li>
+      <li>
         <span class="insight-num">4</span>
-        <span>Wednesday's turbo has now been skipped two weeks running
-        (28 Sep–4 Oct and this week) with no stated reason. It's meant to
-        be the non-impact buffer that keeps running days spaced apart —
-        worth a direct check on what's getting in the way, since it's
-        becoming a pattern rather than a one-off.
-        <span class="insight-tag">Coaching Philosophy: Recovery Philosophy (active, not passive)</span></span>
+        <span>This week's structure is unusually driven by logistics
+        rather than training logic: the run moves to Wednesday morning in
+        London (no turbo there), Thursday becomes forced rest instead of
+        the usual second run, and the long run moves from Saturday
+        (volunteering) to Sunday. ~8.2mi total — a bigger cut than a
+        typical recovery week, and intentional rather than compensated
+        for elsewhere.
+        <span class="insight-tag">Coaching Priorities: realistic, evidence-based — not a fixed template</span></span>
       </li>
     </ul>
 
     <h3 style="margin-top:4px;">Tips For Right Now</h3>
     <ul class="tip-list">
-      <li>Saturday's back-to-back: the goal is holding HR 123–135 for real, not matching 26 Sep's pace — a HR alert on the watch would help if you've got one set up.</li>
-      <li>Keep avoiding the parkrun course on Saturday's controlled-effort session — still the live non-negotiable.</li>
+      <li>Wednesday's London run: no specific route known, so keep it simple — flat, paved, nothing technical. It's an easy session, not a test of anything new.</li>
+      <li>Saturday's volunteering is a full day on your feet — treat it like real fatigue going into Sunday's run, not nothing.</li>
+      <li>Keep a line going in <code>health/2026-10-11-knee-note.md</code> after Wednesday's and Sunday's sessions — even a short "felt fine" or "still a bit off" is useful now that it's actually being tracked.</li>
+      <li>Monday 19 Oct's cortisone injection is one week out — worth asking the doctor directly about activity afterward (how long to avoid running, anything else) so next week's draft can be built on real guidance instead of general caution.</li>
       <li>Check the chest strap connects properly before starting — this plan leans on HR caps, and a dropout has already compromised one session's data (26 Sep).</li>
-      <li>Worth a think on Wednesday's turbo — skipped two weeks running now, worth figuring out what's getting in the way if it's meant to be a standing session.</li>
-      <li>Log how the knee's felt in <code>health/</code> — still empty, and it's the one thing this dashboard can't infer from Strava alone.</li>
     </ul>
   </div>
 
@@ -632,7 +637,7 @@
   </div>
 
   <div class="footer">
-    Dashboard last refreshed 9 Oct 2026 · Strava is read live, never stored · Training
+    Dashboard last refreshed 13 Oct 2026 · Strava is read live, never stored · Training
     plans from <code>training/</code> · Race research from <code>races/</code> ·
     Profile and Coaching Philosophy from <code>athlete-profile.md</code>
   </div>
@@ -652,12 +657,12 @@
   // Volume trend chart (single series, hand-rolled SVG bars)
   (function() {
     const weeks = [
-      { label: 'w/o 31 Aug', value: 14.7 },
       { label: 'w/o 7 Sep',  value: 13.2 },
       { label: 'w/o 14 Sep', value: 14.0 },
       { label: 'w/o 21 Sep', value: 13.9 },
       { label: 'w/o 28 Sep', value: 15.2 },
-      { label: 'w/o 5 Oct',  value: 8.18, inProgress: true }
+      { label: 'w/o 5 Oct',  value: 16.65 },
+      { label: 'w/o 12 Oct', value: 0, inProgress: true, note: 'Tue is turbo' }
     ];
     const svg = document.getElementById('volChart');
     const tooltip = document.getElementById('volTooltip');
@@ -737,7 +742,7 @@
       { name: 'Taper',  weeks: 2.7,  range: '12 Apr – 1 May 2027' }
     ];
     const totalWeeks = phases.reduce((s, p) => s + p.weeks, 0);
-    const todayOffsetWeeks = 16 / 7; // 16 days into the roadmap (23 Sep -> 9 Oct)
+    const todayOffsetWeeks = 20 / 7; // 20 days into the roadmap (23 Sep -> 13 Oct)
 
     const svg = document.getElementById('phaseChart');
     const tooltip = document.getElementById('phaseTooltip');
