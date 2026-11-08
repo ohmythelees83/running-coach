@@ -148,7 +148,15 @@ for exactly what came from where.
 ### Signature Approaches
 1. **Run/walk ratio progression** — Alex's own established method, extending
    the run segment and shrinking the walk segment as sessions stay
-   symptom-free. Already validated by the graduated return from 31 August.
+   symptom-free. Validated by the graduated return from 31 August, and did
+   its job: by early November it had progressed the run segment to the
+   point that walk breaks shrank to near nothing on their own (~30s by
+   3/5 Nov), and the first fully continuous run (no walk breaks) happened
+   7 Nov, no pain/swelling, HR controlled until the very end — updated
+   9 Nov. **Superseded for easy-pace running as of 7 Nov 2026** — continuous
+   running is now the default for easy sessions, not a resumed run/walk
+   structure. Kept as a fallback for a session that doesn't feel right on
+   the day, not the standing method.
 2. **In-run progressive effort** (Britton) — building pace through the back
    half of a long run, introduced once continuous running duration is more
    established, as the first "quality within endurance" tool before any
